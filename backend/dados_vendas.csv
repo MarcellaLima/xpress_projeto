@@ -1,0 +1,26 @@
+@app.route('/dados-vendas')
+def dados_vendas():
+    dados = []
+    try:
+        with open('dados_vendas.csv', newline='', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                quantidade = int(row['quantidade'])
+                preco_compra = float(row['preco_compra'])
+                preco_venda = float(row['preco_venda'])
+                valor_bruto = float(row['valor_bruto'])
+                lucro = (preco_venda - preco_compra) * quantidade
+                
+                dados.append({
+                    'produto': row['produto'],
+                    'quantidade': quantidade,
+                    'preco_compra': preco_compra,
+                    'preco_venda': preco_venda,
+                    'valor_bruto': valor_bruto,
+                    'lucro': round(lucro, 2)
+                })
+    except FileNotFoundError:
+        pass
+    return jsonify(dados)
+from flask import Flask, jsonify
+import csv

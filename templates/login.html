@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login - XPRESS</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style-main.css') }}" />
+
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(90deg, #782cff88 12%, #19151f 88%);
+      font-family: 'Montserrat', Arial, sans-serif;
+      color: #dbb0ff;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-box {
+      background: #221442;
+      padding: 36px 48px;
+      border-radius: 22px;
+      box-shadow: 0 6px 18px #370e5644;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      border: 2px solid #a94ffb;
+    }
+
+    .login-box h2 {
+      margin-bottom: 24px;
+      color: #bc5fff;
+      font-weight: 900;
+      font-size: 2rem;
+      letter-spacing: 1px;
+    }
+
+    .login-box label {
+      display: block;
+      text-align: left;
+      margin-bottom: 6px;
+      font-weight: 700;
+      color: #dbb0ff;
+      font-size: 1rem;
+    }
+
+    .login-box input {
+      display: block;
+      width: 100%;
+      padding: 14px 16px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      border: 2px solid #a94ffb;
+      background: #19151f;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+    }
+
+    .login-box input:focus {
+      border-color: #bc5fff;
+    }
+
+    .login-box .btn-primary {
+      width: 100%;
+      padding: 14px 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+      border-radius: 16px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(90deg, #bc5fff 34%, #4f227a 100%);
+      color: #fff;
+      box-shadow: 0 3px 18px #320a5b80;
+      transition: background 0.3s ease;
+    }
+
+    .login-box .btn-primary:hover {
+      background: linear-gradient(90deg, #dbb0ff 10%, #bc5fff 90%);
+    }
+
+    .signup-text {
+      margin-top: 14px;
+      font-size: 0.9rem;
+      color: #dbb0ff;
+    }
+
+    .signup-text a {
+      color: #bc5fff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .signup-text a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+    <div class="login-box">
+      <h2>Login XPRESS</h2>
+      <form id="loginForm" action="/login" method="POST">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="seu@email.com" required />
+
+        <label for="password">Senha</label>
+        <input type="password" id="password" name="password" placeholder="Sua senha" required />
+
+        <button type="submit" class="btn-primary">Entrar</button>
+      </form>
+
+      <p class="signup-text">
+        Não tem uma conta?
+        <button onclick="window.location.href='cadastro.html'" style="background:none;border:none;color:#bc5fff;cursor:pointer;font-weight:700;padding:0;">
+          Cadastre-se
+        </button>
+      </p>
+    </div>
+  </div>
+</body>
+
+</html>

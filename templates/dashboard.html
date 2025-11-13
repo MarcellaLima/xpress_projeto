@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard XPRESS</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style-main.css') }}" />
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <style>
+    body {
+      background: linear-gradient(90deg, #782cff88 12%, #19151f 88%);
+      color: #dbb0ff;
+      font-family: 'Montserrat', Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #bc5fff;
+      margin-bottom: 30px;
+    }
+    #chartContainer {
+      max-width: 700px;
+      margin: 0 auto 40px auto;
+      background: #221442;
+      padding: 20px 30px;
+      border-radius: 20px;
+      box-shadow: 0 6px 18px #370e5644;
+      border: 2px solid #a94ffb;
+    }
+    #map {
+      height: 400px;
+      max-width: 700px;
+      margin: 0 auto;
+      border-radius: 20px;
+      box-shadow: 0 6px 18px #370e5644;
+      border: 2px solid #a94ffb;
+    }
+    .info-table {
+      color: #dbb0ff;
+      max-width: 700px;
+      margin: 0 auto 20px auto;
+      background: #221442;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 6px 18px #370e5644;
+      border: 2px solid #a94ffb;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .info-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .info-table th, .info-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid #a94ffb;
+      text-align: center;
+    }
+    .info-table th {
+      color: #bc5fff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Olá, usuário! Bem-vindo ao Dashboard</h1>
+
+  <div id="chartContainer">
+    <canvas id="myChart"></canvas>
+  </div>
+
+  <div class="info-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Produto</th>
+          <th>Quantidade</th>
+          <th>Preço Compra</th>
+          <th>Preço Venda</th>
+          <th>Lucro</th>
+          <th>Valor Bruto</th>
+        </tr>
+      </thead>
+      <tbody id="infoTableBody">
+      </tbody>
+    </table>
+  </div>
+
+  <div id="map"></div>
+
+  <script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Pedidos',
+          data: [],
+          backgroundColor: '#bc5fff'
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    async function atualizarDashboard() {
+      try {
+        const response = await fetch('/dados-vendas');
+        const dados = await response.json();
+
+        const labels = dados.map(item => item.produto);
+        const vendas = dados.map(item => item.quantidade);
+
+        myChart.data.labels = labels;
+        myChart.data.datasets[0].data = vendas;
+        myChart.update();
+
+        const tbody = document.getElementById('infoTableBody');
+        tbody.innerHTML = '';
+
+        dados.forEach(item => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${item.produto}</td>
+            <td>${item.quantidade}</td>
+            <td>R$ ${item.preco_compra.toFixed(2)}</td>
+            <td>R$ ${item.preco_venda.toFixed(2)}</td>
+            <td>R$ ${item.lucro.toFixed(2)}</td>
+            <td>R$ ${item.valor_bruto.toFixed(2)}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (e) {
+        console.error('Erro ao buscar dados:', e);
+      }
+    }
+
+    atualizarDashboard();
+    setInterval(atualizarDashboard, 10000);
+
+    var map = L.map('map').setView([-22.928677, -42.508954], 16);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+    L.marker([-22.928677, -42.5089542]).addTo(map)
+      .bindPopup('Unidade da Univassouras - Saquarema, Gravata')
+      .openPopup();
+  </script>
+</body>
+</html>

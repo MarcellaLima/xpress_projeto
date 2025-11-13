@@ -1,0 +1,84 @@
+body {
+  background: #19151f url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+  color: #fff;
+  font-family: 'Montserrat', Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  padding: 50px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.container {
+  background: linear-gradient(135deg, #a94ffb29 40%, #221442 90%);
+  border: 2px solid #a94ffb;
+  border-radius: 20px;
+  padding: 40px 35px;
+  max-width: 600px;
+  box-shadow: 0 8px 26px #21173355;
+  width: 100%;
+}
+
+h2 {
+  font-size: 2.3rem;
+  font-weight: 900;
+  color: #bc5fff;
+  margin-bottom: 26px;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+form#formCadastro {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+form#formCadastro label {
+  font-weight: 700;
+  color: #dbb0ff;
+  margin-bottom: 8px;
+  display: block;
+}
+
+form#formCadastro input,
+form#formCadastro select,
+form#formCadastro textarea {
+  width: 100%;
+  padding: 15px 18px;
+  font-size: 1.25rem;
+  border-radius: 12px;
+  border: 2px solid #bc5fff;
+  background-color: #1a1327;
+  color: white;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+form#formCadastro input:focus,
+form#formCadastro select:focus,
+form#formCadastro textarea:focus {
+  border-color: #dbb0ff;
+}
+
+.btn {
+  background: linear-gradient(90deg, #bc5fff 45%, #4f227a 100%);
+  color: #fff;
+  border: none;
+  border-radius: 15px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: 16px 0;
+  cursor: pointer;
+  box-shadow: 0 3px 18px #320a5b80;
+  margin-top: 12px;
+  transition: background 0.18s, transform 0.14s;
+  width: 100%;
+}
+
+.btn:hover {
+  background: linear-gradient(90deg, #dbb0ff 10%, #bc5fff 90%);
+  transform: scale(1.08);
+}
